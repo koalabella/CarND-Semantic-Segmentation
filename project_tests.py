@@ -78,6 +78,7 @@ def test_load_vgg(load_vgg, tf_module):
         assert vgg_layer3_out == test_vgg_layer3_out, 'layer3_out is the wrong object'
         assert vgg_layer4_out == test_vgg_layer4_out, 'layer4_out is the wrong object'
         assert vgg_layer7_out == test_vgg_layer7_out, 'layer7_out is the wrong object'
+        print('vgg load function passed test!')
 
 
 @test_safe
@@ -89,6 +90,7 @@ def test_layers(layers):
     layers_output = layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes)
 
     _assert_tensor_shape(layers_output, [None, None, None, num_classes], 'Layers Output')
+    print('layers function passed test!')
 
 
 @test_safe
@@ -108,7 +110,7 @@ def test_optimize(optimize):
         test, loss = sess.run([layers_output, cross_entropy_loss], {correct_label: np.arange(np.prod(shape)).reshape(shape)})
 
     assert test.min() != 0 or test.max() != 0, 'Training operation not changing weights.'
-
+    print('optimize function passed test!')
 
 @test_safe
 def test_train_nn(train_nn):
@@ -138,6 +140,7 @@ def test_train_nn(train_nn):
             'keep_prob': keep_prob,
             'learning_rate': learning_rate}
         _prevent_print(train_nn, parameters)
+    print('train_nn function passed test!')
 
 
 @test_safe
